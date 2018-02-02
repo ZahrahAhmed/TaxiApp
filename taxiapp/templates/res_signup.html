@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% block title %}
+Sign up
+{% endblock title %}
+
+
+{% block content %}
+    <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        {{restaurant_form|crispy}}
+        <input class = "btn btn-primary" type="submit" value="Signup">
+    </form>
+{% endblock content %}

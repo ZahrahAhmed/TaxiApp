@@ -1,23 +1,31 @@
-"""taxi URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path
 from django.conf.urls import include
+from django.urls import path
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
+from taxiapp import views, apis
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('taxi/', include('taxiapp.urls', namespace="taxi")),
+    path('home/', views.home, name='home'),
+    # Restaurant
+    path('restaurant/login/', views.restaurant_login, name="login"),
+    path('restaurant/logout/', views.restaurant_logout, name="logout"),
+    path('restaurant/signup/', views.restaurant_signup, name="signup"),
+
+    path('restaurant/home/', views.restaurant_home, name="restaurant_home"),
+
+    path('restaurant/account/', views.restaurant_account, name="restaurant_account"),
+    path('restaurant/meal/', views.restaurant_meal, name="restaurant_meal"),
+    path('restaurant/meal/add/', views.add_meal, name="add_meal"),
+    path('restaurant/meal/edit/<int:meal_id>/', views.edit_meal, name="edit_meal"),
+    path('restaurant/order/', views.restaurant_order, name="restaurant_order"),
+
+    path('restaurant/report/', views.restaurant_report, name="restaurant_report"),
+
+
 ]
+if settings.DEBUG:
+    urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,13 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}
 home page
 {% endblock title %}
 
-
 {% block content %}
-    henlo zg
+<a href="{% url 'signup' %}" class="btn btn-primary btn-lg btn-block">Signup</a>
+<br/>
+<hr/>
+<br/>
+<a href="{% url 'login' %}" class="btn btn-success btn-lg btn-block">Log In</a>
 {% endblock content %}
