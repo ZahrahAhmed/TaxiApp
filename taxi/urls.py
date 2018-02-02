@@ -7,6 +7,8 @@ from django.conf import settings
 from taxiapp import views, apis
 
 urlpatterns = [
+    path('api/social/', include('rest_framework_social_oauth2.urls')),
+    
     path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),
     # Restaurant

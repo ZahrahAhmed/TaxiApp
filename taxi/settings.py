@@ -27,14 +27,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     'taxiapp',
-    'oauth2_provider',
+
     'social.apps.django_app.default',
-    'rest_framework_social_oauth2',
     'rest_framework.authtoken',
+
     'rest_framework',
     'crispy_forms',
-    'bootstrap4'
+    'bootstrap4',
+
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
 ]
 
 CRISPY_TEMPLATE_PACK ="bootstrap4"
@@ -74,8 +80,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'social.apps.django_app.context_processors.backends',
-                'social.apps.django_app.context_processors.login_redirect',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -138,3 +145,32 @@ LOGIN_REDIRECT_URL = '/home/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+AUTHENTICATION_BACKENDS = (
+   'social_core.backends.facebook.FacebookOAuth2',
+   'rest_framework_social_oauth2.backends.DjangoOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+)
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '139127690224880'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'ab56e9c9017566a0a9c1b57e0d3207bb'
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'taxiapp.social_auth_pipeline.create_user_by_type',  # <--- set the path to the function
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
