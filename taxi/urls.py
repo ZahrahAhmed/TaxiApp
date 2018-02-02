@@ -8,9 +8,10 @@ from taxiapp import views, apis
 
 urlpatterns = [
     path('api/social/', include('rest_framework_social_oauth2.urls')),
-    
+
     path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),
+
     # Restaurant
     path('restaurant/login/', views.restaurant_login, name="login"),
     path('restaurant/logout/', views.restaurant_logout, name="logout"),
@@ -26,6 +27,11 @@ urlpatterns = [
 
     path('restaurant/report/', views.restaurant_report, name="restaurant_report"),
 
+    # APIs for CUSTOMERS
+    path('api/customer/restaurants/', apis.customer_get_restaurants),
+    path('api/customer/meals/<restaurant_id>/', apis.customer_get_meals),
+    path('api/customer/order/add/', apis.customer_add_order),
+    path('api/customer/order/latest/', apis.customer_get_latest_order),
 
 ]
 if settings.DEBUG:
