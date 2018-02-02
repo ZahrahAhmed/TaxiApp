@@ -1,2 +1,45 @@
+
 {% extends "restaurant.html" %}
-{% load bootstrap4 %}
+{% block title %}
+order
+{% endblock title %}
+{% block content %}
+<div class="container-fluid" style="width: 50rem;">
+<div class="col-lg-offset-2 col-lg-14">
+    <div class="jumbotron">
+		<h1 class="display-3">Orders</h1>
+    <hr/>
+   	</div>
+    <div>
+      <div class="row">
+        {% for order in orders %}
+        <div class=" card col-xs-12 col-md-6" style="width: 40rem;">
+          <div class= card-body>
+            <p class="card-text"><strong>ID:</strong> {{order.id}}</p>
+            <p class="card-text">
+              {% for od in order.order_details.all %}
+              <strong>Order Details:</strong> {{ od.meal.name }}  {{ od.meal.price}} x {{ od.quantity }} = {{ od.sub_total }}
+              {% endfor %}
+            </p>
+            <p class="card-text"><strong>Customer:</strong> {{order.customer}}</p>
+            <p class="card-text"><strong>Driver:</strong> {{order.driver}}</p>
+            <p class="card-text"><strong>Total:</strong> {{order.total}}</p>
+            <p class="card-text"><strong>Status:</strong> {{order.get_status_display}}</p>
+
+            <p class="card-text"><strong>Action:</strong>
+              {% if order.status == 1 %}
+                <form method="POST">
+                  {% csrf_token %}
+                  <input name="id" value="{{ order.id }}" hidden>
+                  <button type="submit" class="btn btn-success">Ready</button>
+                </form>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+</div>
+{% endblock content %}
