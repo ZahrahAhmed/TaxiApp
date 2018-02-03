@@ -80,8 +80,8 @@ body {
 
 .sidebar .list-group .list-group-item .badge,
 .sidebar .list-group .list-group-item.active .badge {
- background-color: #bdbdbd;
- color: #5b5a60;
+  background-color: #EE5462;
+  color: #e0deeb;
 }
 
 /* SIDE BAR - LOGOUT */

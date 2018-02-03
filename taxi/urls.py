@@ -25,6 +25,8 @@ urlpatterns = [
     path('restaurant/meal/edit/<int:meal_id>/', views.edit_meal, name="edit_meal"),
     path('restaurant/order/', views.restaurant_order, name="restaurant_order"),
 
+    path('api/restaurant/order/notification/<str:lrt>/', apis.restaurant_order_notification),
+
     path('restaurant/report/', views.restaurant_report, name="restaurant_report"),
 
     # APIs for CUSTOMERS

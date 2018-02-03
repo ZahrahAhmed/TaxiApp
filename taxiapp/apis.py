@@ -65,3 +65,7 @@ def customer_add_order(request):
 
 def customer_get_latest_order(request):
     return JsonResponse({})
+
+def restaurant_order_notification(request, lrt):
+    notification = Order.objects.filter(restaurant = request.user.restaurant, created_at__gt = lrt).count()
+    return JsonResponse({"notification": notification})
