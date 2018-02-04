@@ -31,10 +31,18 @@ urlpatterns = [
 
     # APIs for CUSTOMERS
     path('api/customer/restaurants/', apis.customer_get_restaurants),
-    path('api/customer/meals/<restaurant_id>/', apis.customer_get_meals),
+    path('api/customer/meals/<int:restaurant_id>/', apis.customer_get_meals),
     path('api/customer/order/add/', apis.customer_add_order),
     path('api/customer/order/latest/', apis.customer_get_latest_order),
+    path('api/customer/driver/location/', apis.customer_driver_location),
 
+     #APIs for Drivers
+    path('api/driver/orders/ready/', apis.driver_get_ready_orders),
+    path('api/driver/order/pick/', apis.driver_pick_orders),
+    path('api/driver/order/latest/', apis.driver_get_latest_orders),
+    path('api/driver/order/complete/', apis.driver_complete_orders),
+    path('api/driver/order/revenue/', apis.driver_get_revenue),
+    path('api/driver/location/update/', apis.driver_update_location),
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
