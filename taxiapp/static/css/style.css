@@ -98,9 +98,19 @@ body {
   padding-top: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
-  padding-left: 300px;
+  padding-left: 250px;
 }
 
 .content .panel {
- border: none;
+  border: none;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td {
+  vertical-align: middle;
+}
+
+.table,
+.table > thead > tr > th {
+  border-color: #88A1B2;
 }

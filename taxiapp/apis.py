@@ -3,6 +3,7 @@ from .models import Restaurant, Meal, Order, OrderDetails, Driver
 from .serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 from django.utils import timezone
 import json
+from datetime import timedelta
 from oauth2_provider.models import AccessToken
 from django.views.decorators.csrf import csrf_exempt
 
@@ -45,7 +46,7 @@ def customer_add_order(request):
         order_total = 0
         for meal in order_details:
             order_total += Meal.objects.get(id = meal["meal_id"]).price * meal["quantity"]
-        if len(order_details) > 0:
+            if len(order_details) > 0:
                 order = Order.objects.create(
                     customer = customer,
                     restaurant_id = request.POST["restaurant_id"],
@@ -53,6 +54,7 @@ def customer_add_order(request):
                     status = Order.COOKING,
                     address = request.POST["address"],
                 )
+
                 for meal in order_details:
                     OrderDetails.objects.create(
                         order = order,
@@ -145,8 +147,6 @@ def driver_get_revenue(request):
     access_token = AccessToken.objects.get(token = request.GET.get("access_token"),  expires__gt = timezone.now())
 
     driver = access_token.user.driver
-
-    from datetime import timedelta
 
     revenue = {}
     today = timezone.now()
