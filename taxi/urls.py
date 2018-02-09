@@ -43,6 +43,7 @@ urlpatterns = [
     path('api/driver/order/complete/', apis.driver_complete_orders),
     path('api/driver/order/revenue/', apis.driver_get_revenue),
     path('api/driver/location/update/', apis.driver_update_location),
+
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

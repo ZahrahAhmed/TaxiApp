@@ -97,11 +97,16 @@ var myChart = new Chart(ctx, {
               <canvas id="orderChart" height="107"></canvas>
           </div>
       </div>
-</div>
-        <div class="col-lg-4">
-        </br>
-        </br>
-          <!-- TOP 3 Meals -->
+    </div>
+
+  </div>
+
+  <div class="container-fluid">
+
+  </br>
+</br>
+    <div class="row">
+        <div class="col-lg-6">
           <div class="panel">
               <div class="panel-heading bg-blue">
                 <h4 class="panel-title text-center text-white">Top 3 Meals</h4>
@@ -110,16 +115,17 @@ var myChart = new Chart(ctx, {
                   <canvas id="mealChart" height="500"></canvas>
               </div>
           </div>
-
-          <!-- TOP 3 Driver ALL TIME -->
-          <div class="panel">
+        </div>
+        <div class="col-lg-6">
+            <div class="panel">
               <div class="panel-heading bg-blue">
                 <h4 class="panel-title text-center text-white">Top 3 Drivers</h4>
               </div>
               <div class="panel-body">
                   <canvas id="driverChart" height="500"></canvas>
               </div>
-          </div>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
