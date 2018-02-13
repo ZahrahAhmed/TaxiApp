@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'taxiapp',
+    'payment',
 
     'social.apps.django_app.default',
     'rest_framework.authtoken',

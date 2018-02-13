@@ -39,11 +39,8 @@ restaurant page
     <h5> {{ user.restaurant.name }} </h5>
   </div>
   <hr/>
+
   <div class="list-group">
-    <form class="form-inline my-2 my-lg-0" action="{% url 'home' %}" method="GET">
-      <input class="form-control mr-sm-2" name='q' type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
     <span class="text-uppercase"> Profile </span>
     <a href="{% url 'restaurant_account' %}" class="list-group-item {%if request.path == account_url %} active {%endif%}">Account</a>
 

@@ -4,7 +4,7 @@ meal
 {% endblock title %}
 {% block content %}
 <div class="container-fluid" style="width: 50rem;">
-<div class="col-lg-offset-2 col-lg-14">
+<div class="col-lg-12">
     <div class="jumbotron">
 		<h1 class="display-3">Meals</h1>
     <hr/>
@@ -12,22 +12,22 @@ meal
       <a href="{% url 'add_meal'%}" class="btn btn-outline-secondary btn-lg"> Add new meal</a>
     </div>
    	</div>
-    <div>
       <div class="row">
         {% for meal in meals %}
-        <div class=" card col-xs-12 col-md-4" style="width: 20rem;">
+        <div class="card col-lg-6" style="width: 50rem;">
           {% if meal.image %}
-            <img class="card-img-top" src="{{meal.image.url}}" alt="Card image cap">
+          <br/>
+            <img class="align-self-center" src="{{meal.image.url}}" alt="Card image cap" style="width: 250px; height: 250px;">
           {% endif %}
           <div class= card-body>
-            <h4 class="card-title"><a href="{% url 'edit_meal' meal.id %}">Name:  {{meal.name}} </a></h4>
-            <p class="card-text">Description: {{meal.short_description| linebreaks| truncatechars:30}}</p>
-            <p class="card-text">Price: {{meal.price}} KWD</p>
+            <h4 class="card-title"><strong>Name: </strong>{{meal.name}} </h4>
+            <h4 class="card-title"><strong>Description: </strong>{{meal.short_description| truncatechars:30}}</h4>
+            <h4 class="card-title"><strong>Price: </strong>{{meal.price}} KWD</h4>
+            <a class="btn btn-outline-secondary btn-lg" href="{% url 'edit_meal' meal.id %}"> Edit Meal</a>
           </div>
         </div>
         {% endfor %}
       </div>
-    </div>
 </div>
 </div>
 {% endblock content %}

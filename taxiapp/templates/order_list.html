@@ -1,0 +1,45 @@
+{% for order in orders %}
+<div class=" card col-xs-12 col-md-6" style="width: 40rem;">
+  <div class= card-body>
+    <p class="card-text"><strong> Order ID:</strong> {{order.id}}</p>
+    <p class="card-text">
+      {% for od in order.order_details.all %}
+      <strong>Order Details:</strong> {{ od.meal.name }}  {{ od.meal.price}} x {{ od.quantity }} = {{ od.sub_total }}
+      {% endfor %}
+    </p>
+    <p class="card-text"><strong>Customer:</strong> {{order.customer}}</p>
+    <p class="card-text"><strong>Driver:</strong> {{order.driver}}</p>
+    <p class="card-text"><strong>Total:</strong> {{order.total}}</p>
+    <p class="card-text"><strong>Status:</strong> {{order.get_status_display}}</p>
+
+
+    {% if order.status == 1 %}
+      <p class="card-text"><strong>Action:</strong>
+        <form method="POST">
+          {% csrf_token %}
+          <input name="id" value="{{ order.id }}" hidden>
+          <button type="submit" class="btn btn-success">Ready</button>
+        </form>
+      </p>
+    {% endif %}
+    {% if order.status == 2 %}
+      <p class="card-text"><strong>Action:</strong>
+        <form method="POST">
+          {% csrf_token %}
+          <input name="id" value="{{ order.id }}" hidden>
+          <button type="submit" class="btn btn-success">On The Way</button>
+        </form>
+      </p>
+    {% endif %}
+    {% if order.status == 3 %}
+      <p class="card-text"><strong>Action:</strong>
+        <form method="POST">
+          {% csrf_token %}
+          <input name="id" value="{{ order.id }}" hidden>
+          <button type="submit" class="btn btn-success">Delivered</button>
+        </form>
+      </p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}

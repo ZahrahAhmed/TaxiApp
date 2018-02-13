@@ -5,8 +5,10 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
 from taxiapp import views, apis
+from django.conf.urls import include
 
 urlpatterns = [
+    path('payment/', include('payment.urls', namespace="payment")),
     path('api/social/', include('rest_framework_social_oauth2.urls')),
 
     path('admin/', admin.site.urls),
@@ -43,6 +45,7 @@ urlpatterns = [
     path('api/driver/order/complete/', apis.driver_complete_orders),
     path('api/driver/order/revenue/', apis.driver_get_revenue),
     path('api/driver/location/update/', apis.driver_update_location),
+
 
 ]
 if settings.DEBUG:

@@ -4,40 +4,54 @@
 order
 {% endblock title %}
 {% block content %}
+
 <div class="container-fluid" style="width: 50rem;">
 <div class="col-lg-offset-2 col-lg-14">
     <div class="jumbotron">
 		<h1 class="display-3">Orders</h1>
     <hr/>
+    <br/>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-cooking-tab" data-toggle="pill" href="#pills-cooking" role="tab" aria-controls="pills-cooking" aria-selected="false">Cooking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-ready-tab" data-toggle="pill" href="#pills-ready" role="tab" aria-controls="pills-ready" aria-selected="false">Ready</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-ontheway-tab" data-toggle="pill" href="#pills-ontheway" role="tab" aria-controls="pills-ontheway" aria-selected="false">On The Way</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-delivered-tab" data-toggle="pill" href="#pills-delivered" role="tab" aria-controls="pills-delivered" aria-selected="false">Delivered</a>
+      </li>
+    </ul>
    	</div>
-    <div>
-      <div class="row">
-        {% for order in orders %}
-        <div class=" card col-xs-12 col-md-6" style="width: 40rem;">
-          <div class= card-body>
-            <p class="card-text"><strong>ID:</strong> {{order.id}}</p>
-            <p class="card-text">
-              {% for od in order.order_details.all %}
-              <strong>Order Details:</strong> {{ od.meal.name }}  {{ od.meal.price}} x {{ od.quantity }} = {{ od.sub_total }}
-              {% endfor %}
-            </p>
-            <p class="card-text"><strong>Customer:</strong> {{order.customer}}</p>
-            <p class="card-text"><strong>Driver:</strong> {{order.driver}}</p>
-            <p class="card-text"><strong>Total:</strong> {{order.total}}</p>
-            <p class="card-text"><strong>Status:</strong> {{order.get_status_display}}</p>
-
-            <p class="card-text"><strong>Action:</strong>
-              {% if order.status == 1 %}
-                <form method="POST">
-                  {% csrf_token %}
-                  <input name="id" value="{{ order.id }}" hidden>
-                  <button type="submit" class="btn btn-success">Ready</button>
-                </form>
-              {% endif %}
-            </p>
-          </div>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+        <div class="row">
+          {% include "order_list.html" with orders=orders %}
         </div>
-        {% endfor %}
+      </div>
+      <div class="tab-pane fade" id="pills-cooking" role="tabpanel" aria-labelledby="pills-cooking-tab">
+        <div class="row">
+          {% include "order_list.html" with orders=cooking %}
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pills-ready" role="tabpanel" aria-labelledby="pills-ready-tab">
+        <div class="row">
+          {% include "order_list.html" with orders=ready %}
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pills-ontheway" role="tabpanel" aria-labelledby="pills-ontheway-tab">
+        <div class="row">
+          {% include "order_list.html" with orders=on_the_way %}
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pills-delivered" role="tabpanel" aria-labelledby="pills-delivered-tab">
+          {% include "order_list.html" with orders=delivered %}
       </div>
     </div>
 </div>

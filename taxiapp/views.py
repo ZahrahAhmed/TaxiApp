@@ -14,6 +14,7 @@ def home(request):
 @login_required(login_url='/restaurant/login/')
 def restaurant_home(request):
     return render(request, 'restaurant.html', {})
+
 @login_required(login_url='/restaurant/login/')
 def restaurant_account(request):
     form = UserFormForEdit(instance = request.user)
@@ -77,9 +78,26 @@ def restaurant_order(request):
         if order.status == Order.COOKING:
             order.status = Order.READY
             order.save()
+        elif order.status == Order.READY:
+            order.status = Order.ONTHEWAY
+            order.save()
+        elif order.status == Order.ONTHEWAY:
+            order.status = Order.DELIVERED
+            order.save()
 
     orders = Order.objects.filter(restaurant = request.user.restaurant).order_by("-id")
-    return render(request, 'order.html', {"orders": orders,})
+    cooking = orders.filter(status=1)
+    ready = orders.filter(status=2)
+    on_the_way = orders.filter(status=3)
+    delivered = orders.filter(status=4)
+    context = {
+        "orders": orders,
+        "ready": ready,
+        "cooking": cooking,
+        "on_the_way": on_the_way,
+        "delivered": delivered,
+    }
+    return render(request, 'order.html', context)
 
 @login_required(login_url='/restaurant/login/')
 def restaurant_report(request):
