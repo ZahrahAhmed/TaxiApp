@@ -10,7 +10,7 @@ django-crispy-forms==1.7.0
 django-filter==1.1.0
 django-oauth-toolkit==1.0.0
 django-rest-framework-social-oauth2==1.1.0
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 gunicorn==19.7.1
 idna==2.6
 Markdown==2.6.11
